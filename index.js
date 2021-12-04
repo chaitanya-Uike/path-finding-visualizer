@@ -43,13 +43,13 @@ let drawWalls = false
 
 grid.addEventListener("mousedown", event => {
 
-    if (event.target && event.target.matches("div.source")) {
+    if (event.target && event.target.matches("div.source") && !loading) {
         sourceChangeFlag = true
     }
-    else if (event.target && event.target.matches("div.dest")) {
+    else if (event.target && event.target.matches("div.dest") && !loading) {
         destChangeFlag = true
     }
-    else if (event.target && event.target.matches("div.cell")) {
+    else if (event.target && event.target.matches("div.cell") && !loading) {
         drawWalls = true
     }
 })
@@ -61,7 +61,7 @@ grid.addEventListener("mouseup", event => {
 })
 
 grid.addEventListener("mouseover", async event => {
-    if (event.target && event.target.matches("div.cell") && loading == false) {
+    if (event.target && event.target.matches("div.cell")) {
 
         if (sourceChangeFlag) {
             // change source
@@ -226,8 +226,9 @@ async function djikstra(src, dest) {
         ST[u] = 1;
 
         // if no change takes place, then it means that there is no path
-        if (!change)
+        if (!change) {
             animation = false
+        }
 
         if (animation) {
             await delay(1 / parseInt(document.querySelector("#speed").value))
