@@ -36,10 +36,9 @@ main{
     margin: 0 10px;
     width: 100px;
     border: none;
-    background-color: #2196f3;
+    background-color: gray;
     color: white;
     padding: 5px;
-    border-radius: 10px;
 }
 
 #algo-select:focus{
@@ -108,7 +107,6 @@ main{
     border: none;
     padding: 5px 15px;
     margin: 0 20px;
-    border-radius: 10px;
     background-color: #1abc9c;
     color: white;
     cursor: pointer;
@@ -142,7 +140,6 @@ main{
     border: none;
     padding: 5px 15px;
     margin: 0 20px;
-    border-radius: 10px;
     background-color: #2196f3;
     color: white;
     cursor: pointer;
