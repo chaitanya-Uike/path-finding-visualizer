@@ -368,13 +368,6 @@ async function aStar(src, dest) {
             }
         })
 
-        if (animation) {
-            await delay(1 / (parseInt(document.querySelector("#speed").value) * 2))
-        }
-
-        // change color of the visited nodes
-        document.getElementById(`${node.x}x${node.y}`).classList.add("visited")
-
         openSet.delete(node.index)
         closedSet.set(node.index, node)
 
@@ -410,7 +403,7 @@ async function aStar(src, dest) {
             from[neighbour.index] = node.index
 
             if (animation) {
-                await delay(1 / (parseInt(document.querySelector("#speed").value) * 2))
+                await delay(1 / parseInt(document.querySelector("#speed").value))
             }
 
             // change color of the visited nodes
