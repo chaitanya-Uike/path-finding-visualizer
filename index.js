@@ -1,17 +1,21 @@
-// TODO's
-// 1. cahnge the restart button to a fast forward button
-
-
-
 const row = 22
 const col = 60
+
+
 let g = []
+let from = new Array(row * col)
+let path = []
+let walls = []
 
-
-
-const grid = document.querySelector(".grid")
+for (let i = 0; i < row * col; i++) {
+    walls[i] = 0
+}
 
 let startFlag = false
+let loading = false
+let animation = false
+
+const grid = document.querySelector(".grid")
 
 function createGrid(row, col) {
     for (let i = 0; i < row; i++) {
@@ -30,26 +34,72 @@ function delay(n) {
     });
 }
 
+//  Grid drawing logic (changing the source and dest, drwaing walls)
+let sourceChangeFlag = false
 
-
-// wall creation logic
-let walls = []
-
-for (let i = 0; i < row * col; i++) {
-    walls[i] = 0
-}
+let destChangeFlag = false
 
 let drawWalls = false
 
 grid.addEventListener("mousedown", event => {
-    if (event.target && event.target.matches("div.cell") && !event.target.matches("div.source") && !event.target.matches("div.dest") && loading == false) {
+
+    if (event.target && event.target.matches("div.source")) {
+        sourceChangeFlag = true
+    }
+    else if (event.target && event.target.matches("div.dest")) {
+        destChangeFlag = true
+    }
+    else if (event.target && event.target.matches("div.cell")) {
         drawWalls = true
     }
 })
 
+grid.addEventListener("mouseup", event => {
+    drawWalls = false
+    sourceChangeFlag = false
+    destChangeFlag = false
+})
+
 grid.addEventListener("mouseover", async event => {
-    if (event.target && event.target.matches("div.cell") && !event.target.matches("div.source") && !event.target.matches("div.dest")) {
-        if (drawWalls) {
+    if (event.target && event.target.matches("div.cell") && loading == false) {
+
+        if (sourceChangeFlag) {
+            // change source
+            document.querySelector(".source").classList.remove("source")
+            document.getElementById(event.target.id).classList.add("source")
+
+            let srcNode = document.querySelector(".source")
+            let destNode = document.querySelector(".dest")
+
+            let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
+            let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
+
+            if (startFlag) {
+                await djikstra(src, dest)
+                await showPath(src, dest)
+            }
+        }
+
+
+        else if (destChangeFlag) {
+            // change dest
+            document.querySelector(".dest").classList.remove("dest")
+            document.getElementById(event.target.id).classList.add("dest")
+
+            let srcNode = document.querySelector(".source")
+            let destNode = document.querySelector(".dest")
+
+            let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
+            let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
+
+            if (startFlag) {
+                await djikstra(src, dest)
+                await showPath(src, dest)
+            }
+        }
+
+
+        else if (drawWalls) {
             let cell_id = event.target.id.split("x")[0] * col + event.target.id.split("x")[1] * 1
             if (walls[cell_id] == 0) {
                 walls[cell_id] = 1
@@ -66,21 +116,41 @@ grid.addEventListener("mouseover", async event => {
             let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
             let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
             if (startFlag) {
-                await djikstra(src, dest, false)
-                await showPath(src, dest, false)
+                await djikstra(src, dest)
+                await showPath(src, dest)
             }
         }
 
     }
 })
 
-grid.addEventListener("mouseup", event => {
-    drawWalls = false
+// to draw walls based on individual clicks
+grid.addEventListener("click", async event => {
+    if (event.target && event.target.matches("div.cell") && !event.target.matches("div.source") && !event.target.matches("div.dest") && !loading) {
+        let cell_id = event.target.id.split("x")[0] * col + event.target.id.split("x")[1] * 1
+        if (walls[cell_id] == 0) {
+            walls[cell_id] = 1
+            event.target.classList.add("wall")
+        }
+        else {
+            walls[cell_id] = 0
+            event.target.classList.remove("wall")
+        }
+
+        let srcNode = document.querySelector(".source")
+        let destNode = document.querySelector(".dest")
+
+        let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
+        let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
+        if (startFlag) {
+            await djikstra(src, dest)
+            await showPath(src, dest)
+        }
+    }
 })
 
 
-
-
+// algos
 function createAdjacencyMatrix(row, col) {
 
     for (let i = 0; i < row * col; i++) {
@@ -124,15 +194,10 @@ function createAdjacencyMatrix(row, col) {
     }
 }
 
-let from = new Array(row * col)
 
-async function djikstra(src, dest, delayFlag) {
-
-
+async function djikstra(src, dest) {
     // remove visited node
-    Array.from(document.getElementsByClassName("visited")).forEach(element => {
-        element.classList.remove("visited")
-    })
+    clearVisitedNodes()
 
     let n = row * col
 
@@ -162,9 +227,9 @@ async function djikstra(src, dest, delayFlag) {
 
         // if no change takes place, then it means that there is no path
         if (!change)
-            delayFlag = false
+            animation = false
 
-        if (delayFlag) {
+        if (animation) {
             await delay(1 / parseInt(document.querySelector("#speed").value))
         }
 
@@ -191,15 +256,10 @@ async function djikstra(src, dest, delayFlag) {
 
 }
 
-let path = []
-async function showPath(src, dest, delayFlag) {
+async function showPath(src, dest) {
 
     // remove old path
-    for (let i = 0; i < path.length; i++) {
-        document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = ""
-    }
-
-    path = []
+    clearPath()
 
     j = dest
     while (j != src) {
@@ -211,7 +271,7 @@ async function showPath(src, dest, delayFlag) {
 
 
     for (let i = 0; i < path.length; i++) {
-        if (delayFlag) {
+        if (animation) {
             await delay(1 / parseInt(document.querySelector("#speed").value))
         }
         document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = "greenyellow"
@@ -219,7 +279,7 @@ async function showPath(src, dest, delayFlag) {
 }
 
 
-
+// starting the program
 createAdjacencyMatrix(row, col)
 createGrid(row, col)
 
@@ -228,132 +288,66 @@ document.getElementById(`${10}x${10}`).classList.add("source")
 document.getElementById(`${10}x${49}`).classList.add("dest")
 
 
-let loading = false
-
-//  code to change the source
-let sourceChangeFlag = false
-
-function setSourceFlagFalse() {
-    sourceChangeFlag = false
-}
-
-function setSourceFlagTrue() {
-    sourceChangeFlag = true
-}
-
-document.querySelector(".source").addEventListener("mousedown", setSourceFlagTrue)
-document.querySelector(".source").addEventListener("mouseup", setSourceFlagFalse)
-
-grid.addEventListener("mouseover", async event => {
-    if (event.target && event.target.matches("div.cell") && loading == false) {
-        if (sourceChangeFlag) {
-            // remove old event listeners
-            document.querySelector(".source").removeEventListener("mousedown", setSourceFlagTrue)
-            document.querySelector(".source").removeEventListener("mouseup", setSourceFlagFalse)
-
-            // change source
-            document.querySelector(".source").classList.remove("source")
-            document.getElementById(event.target.id).classList.add("source")
-
-            // add new event listeners
-            document.querySelector(".source").addEventListener("mousedown", setSourceFlagTrue)
-            document.querySelector(".source").addEventListener("mouseup", setSourceFlagFalse)
-
-            let srcNode = document.querySelector(".source")
-            let destNode = document.querySelector(".dest")
-
-            let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
-            let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
-
-            if (startFlag) {
-                await djikstra(src, dest, false)
-                await showPath(src, dest, false)
-            }
-        }
-    }
-})
-
-//  code to change the destination
-let destChangeFlag = false
-
-function setDestFlagFalse() {
-    destChangeFlag = false
-}
-
-function setDestFlagTrue() {
-    destChangeFlag = true
-}
-
-document.querySelector(".dest").addEventListener("mousedown", setDestFlagTrue)
-document.querySelector(".dest").addEventListener("mouseup", setDestFlagFalse)
-
-grid.addEventListener("mouseover", async event => {
-    if (event.target && event.target.matches("div.cell") && loading == false) {
-        if (destChangeFlag) {
-            // remove old event listeners
-            document.querySelector(".dest").removeEventListener("mousedown", setDestFlagTrue)
-            document.querySelector(".dest").removeEventListener("mouseup", setDestFlagFalse)
-
-            // change dest
-            document.querySelector(".dest").classList.remove("dest")
-            document.getElementById(event.target.id).classList.add("dest")
-
-            // add new event listeners
-            document.querySelector(".dest").addEventListener("mousedown", setDestFlagTrue)
-            document.querySelector(".dest").addEventListener("mouseup", setDestFlagFalse)
-
-            let srcNode = document.querySelector(".source")
-            let destNode = document.querySelector(".dest")
-
-            let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
-            let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
-
-            if (startFlag) {
-                await djikstra(src, dest, false)
-                await showPath(src, dest, false)
-            }
-        }
-    }
-})
-
 // start the visualizer
-
 const djikstraStart = document.getElementById("djikstra_algo_start")
 
 djikstraStart.addEventListener("click", async event => {
 
+    // after clicking pause button
     if (startFlag && loading == false) {
         startFlag = false
-        // remove old path
-        for (let i = 0; i < path.length; i++) {
-            document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = ""
-        }
-        // remove visited node
-        Array.from(document.getElementsByClassName("visited")).forEach(element => {
-            element.classList.remove("visited")
-        })
+
+        clearPath()
+
+        clearVisitedNodes()
+
         djikstraStart.style.backgroundColor = ""
         djikstraStart.innerHTML = `<i class="material-icons">play_arrow</i>`
     }
+
+    // after clicking forward button
+    else if (startFlag && loading) {
+        animation = false
+    }
+
+    // after clicking play button
     else {
         startFlag = true
         loading = true
+        animation = true
+
         djikstraStart.style.backgroundColor = "#f44336"
-        djikstraStart.innerHTML = `<i class="material-icons">restore</i>`
+        djikstraStart.innerHTML = `<i class="material-icons">fast_forward</i>`
 
         let srcNode = document.querySelector(".source")
         let destNode = document.querySelector(".dest")
 
         let src = srcNode.id.split("x")[0] * col + srcNode.id.split("x")[1] * 1
         let dest = destNode.id.split("x")[0] * col + destNode.id.split("x")[1] * 1
-        await djikstra(src, dest, true)
-        await showPath(src, dest, true)
+
+        await djikstra(src, dest)
+        await showPath(src, dest)
 
         loading = false
+        animation = false
         djikstraStart.style.backgroundColor = "#2196f3"
         djikstraStart.innerHTML = `<i class="material-icons">pause</i>`
     }
 })
+
+
+// grid clearing functions
+
+function resetNodes() {
+
+    // remove old source and dest
+    document.querySelector(".source").classList.remove("source")
+    document.querySelector(".dest").classList.remove("dest")
+
+    // default source and dest
+    document.getElementById(`${10}x${10}`).classList.add("source")
+    document.getElementById(`${10}x${49}`).classList.add("dest")
+}
 
 function clearWall() {
     for (let i = 0; i < row * col; i++) {
@@ -364,25 +358,30 @@ function clearWall() {
     })
 }
 
-function clearBoard() {
+function clearPath() {
 
+    for (let i = 0; i < path.length; i++) {
+        document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = ""
+    }
+
+    path = []
+}
+
+function clearVisitedNodes() {
+    Array.from(document.getElementsByClassName("visited")).forEach(element => {
+        element.classList.remove("visited")
+    })
+}
+
+function clearBoard() {
     startFlag = false
     djikstraStart.style.backgroundColor = ""
     djikstraStart.innerHTML = `<i class="material-icons">play_arrow</i>`
 
     clearWall()
-
-    // remove old path
-    for (let i = 0; i < path.length; i++) {
-        document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = ""
-    }
-    path = []
-
-    // remove visited node
-    Array.from(document.getElementsByClassName("visited")).forEach(element => {
-        element.classList.remove("visited")
-    })
-
+    clearPath()
+    clearVisitedNodes()
+    resetNodes()
 }
 
 document.getElementById("clear-board").addEventListener("click", event => {

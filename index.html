@@ -18,10 +18,38 @@
 <body>
     <main>
         <div class="nav">
-            <button id="djikstra_algo_start"><i class="material-icons">play_arrow</i></button>
-            <label for="speed">set speed:</label>
-            <input class="custom-range" type="range" name="speed" id="speed" min="1" max="50">
-            <button id="clear-board">Clear Grid</button>
+            <div class="nav_buttons">
+                <button id="djikstra_algo_start"><i class="material-icons">play_arrow</i></button>
+                <label for="speed">speed </label>
+                <input class="custom-range mx-2" type="range" name="speed" id="speed" min="1" max="50">
+                <button id="clear-board">Clear Grid</button>
+            </div>
+            <div class="info-container">
+                <div class="node-info">
+                    <div class="node-color display-source"></div>
+                    <p class="node-title mx-2">source</p>
+                </div>
+                <div class="node-info">
+                    <div class="node-color display-dest"></div>
+                    <p class="node-title mx-2">destination</p>
+                </div>
+                <div class="node-info">
+                    <div class="node-color display-cell"></div>
+                    <p class="node-title mx-2">unvisited</p>
+                </div>
+                <div class="node-info">
+                    <div class="node-color display-visited"></div>
+                    <p class="node-title mx-2">visited</p>
+                </div>
+                <div class="node-info">
+                    <div class="node-color display-path"></div>
+                    <p class="node-title mx-2">path</p>
+                </div>
+                <div class="node-info">
+                    <div class="node-color display-wall"></div>
+                    <p class="node-title mx-2">wall</p>
+                </div>
+            </div>
         </div>
         <div class="grid"></div>
     </main>
