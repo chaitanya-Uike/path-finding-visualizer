@@ -19,22 +19,30 @@
     <main>
         <div class="nav">
             <div class="nav_buttons">
-                <select name="algo" id="algo-select">
-                    <option value="djikstra" selected>Djikstra</option>
-                    <option value="astar">A*</option>
-                </select>
-                <button id="djikstra_algo_start"><i class="material-icons">play_arrow</i></button>
-                <button id="clear-board">Clear Grid</button>
-                <label for="speed">speed </label>
-                <input class="custom-range mx-2" type="range" name="speed" id="speed" min="1" max="50">
+                <div>
+                    <label for="algo-select" style="color:white">Algorithm</label>
+                    <select name="algo" id="algo-select">
+                        <option value="djikstra" selected>Djikstra</option>
+                        <option value="astar">A*</option>
+                    </select>
+                </div>
+                <button id="viz_start"><i class="material-icons">play_arrow</i></button>
+                <div class="controls">
+                    <label for="speed" style="color:white">speed </label>
+                    <input class="form-range mx-2" type="range" name="speed" id="speed" min="1" max="50">
+                    <button id="clear-board">Clear Grid</button>
+                </div>
             </div>
-            <div class="info-container">
+        </div>
+        <div class="grid"></div>
+        <footer>
+            <div class="legend-container">
                 <div class="node-info">
-                    <div class="node-color display-source"></div>
+                    <div class="node-color display-cell display-source"></div>
                     <p class="node-title mx-2">source</p>
                 </div>
                 <div class="node-info">
-                    <div class="node-color display-dest"></div>
+                    <div class="node-color display-cell display-dest"></div>
                     <p class="node-title mx-2">destination</p>
                 </div>
                 <div class="node-info">
@@ -54,8 +62,10 @@
                     <p class="node-title mx-2">wall</p>
                 </div>
             </div>
-        </div>
-        <div class="grid"></div>
+            <!-- <div class="my-info text-center ">
+                <p>made by <a href="https://github.com/chaitanya-Uike">Chaitanya Uike</a></p>
+            </div> -->
+        </footer>
     </main>
 </body>
 <script src="js/utilities.js"></script>

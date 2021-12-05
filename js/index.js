@@ -29,7 +29,7 @@ document.getElementById(`${10}x${49}`).classList.add("dest")
 
 
 // start the visualizer
-const djikstraStart = document.getElementById("djikstra_algo_start")
+const djikstraStart = document.getElementById("viz_start")
 
 djikstraStart.addEventListener("click", async event => {
 
