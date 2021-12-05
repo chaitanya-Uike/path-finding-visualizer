@@ -1,11 +1,14 @@
-const row = 22
-const col = 60
+const row = 21
+const col = 61
 
 
 let g = []
 let from = new Array(row * col)
 let path = []
 let walls = []
+
+// variable used in maze generation
+let visited = []
 
 
 
@@ -104,4 +107,21 @@ algoSelect.addEventListener("change", event => {
 
     djikstraStart.style.backgroundColor = ""
     djikstraStart.innerHTML = `<i class="material-icons">play_arrow</i>`
+})
+
+
+document.getElementById("generate-maze-button").addEventListener("click", event => {
+
+    clearBoard()
+
+    // change source, dest location to first and last cell
+
+    document.querySelector(".source").classList.remove("source")
+    document.querySelector(".dest").classList.remove("dest")
+
+    document.getElementById("1x1").classList.add("source")
+    document.getElementById("19x59").classList.add("dest")
+
+    initMaze()
+    recursiveBacktracker()
 })
