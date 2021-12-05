@@ -128,6 +128,19 @@ footer{
     width: 100px;
 }
 
+#speed::-webkit-slider-thumb {
+    background: gray;
+}
+  
+#speed::-moz-range-thumb {
+    background: gray;
+}
+  
+#speed::-ms-thumb {
+    background: gray;
+}
+
+
 .wall{
     background-color: #6E3CBC;
     border-color: #6E3CBC;
