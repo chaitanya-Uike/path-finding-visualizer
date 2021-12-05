@@ -363,7 +363,7 @@ async function aStar(src, dest) {
         // get the first element in the map
         let node = openSet.entries().next().value[1]
         openSet.forEach((value, key) => {
-            if (value.fcost < node.fcost) {
+            if (value.fcost < node.fcost || value.fcost == node.fcost && value.hcost < node.hcost) {
                 node = value
             }
         })
