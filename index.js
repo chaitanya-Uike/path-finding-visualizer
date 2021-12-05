@@ -61,15 +61,25 @@ grid.addEventListener("mouseup", event => {
     drawWalls = false
     sourceChangeFlag = false
     destChangeFlag = false
+
+    // after mouse hold is stopped change the cursor to original
+    document.querySelector(".source").style.cursor = ""
+    document.querySelector(".dest").style.cursor = ""
 })
 
 grid.addEventListener("mouseover", async event => {
     if (event.target && event.target.matches("div.cell")) {
 
         if (sourceChangeFlag) {
+
             // change source
+            // when node changes revert to original cursor
+            document.querySelector(".source").style.cursor = ""
             document.querySelector(".source").classList.remove("source")
+
             document.getElementById(event.target.id).classList.add("source")
+            // when node is being moved change the cursor to grabbing
+            document.querySelector(".source").style.cursor = "grabbing"
 
             let srcNode = document.querySelector(".source")
             let destNode = document.querySelector(".dest")
@@ -89,8 +99,13 @@ grid.addEventListener("mouseover", async event => {
 
         else if (destChangeFlag) {
             // change dest
+            // when node changes revert to original cursor
+            document.querySelector(".dest").style.cursor = ""
             document.querySelector(".dest").classList.remove("dest")
+
             document.getElementById(event.target.id).classList.add("dest")
+            // when node is being moved change the cursor to grabbing
+            document.querySelector(".dest").style.cursor = "grabbing"
 
             let srcNode = document.querySelector(".source")
             let destNode = document.querySelector(".dest")
@@ -476,6 +491,10 @@ djikstraStart.addEventListener("click", async event => {
         loading = true
         animation = true
 
+        // dont let users change nodes, change the cursor to reflect it
+        document.querySelector(".source").style.cursor = "not-allowed"
+        document.querySelector(".dest").style.cursor = "not-allowed"
+
         djikstraStart.style.backgroundColor = "#f44336"
         djikstraStart.innerHTML = `<i class="material-icons">fast_forward</i>`
 
@@ -495,6 +514,10 @@ djikstraStart.addEventListener("click", async event => {
         animation = false
         djikstraStart.style.backgroundColor = "#2196f3"
         djikstraStart.innerHTML = `<i class="material-icons">pause</i>`
+
+        // allow users to change the nodes
+        document.querySelector(".source").style.cursor = ""
+        document.querySelector(".dest").style.cursor = ""
     }
 })
 
