@@ -83,3 +83,17 @@ function clearBoard() {
     clearVisitedNodes()
     resetNodes()
 }
+
+
+// maze generation functions
+function initMaze() {
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < col; j++) {
+            visited[i * col + j] = 0
+            if (i % 2 != 0 && j % 2 != 0)
+                continue
+            walls[i * col + j] = 1
+            document.getElementById(`${i}x${j}`).classList.add("wall")
+        }
+    }
+}
