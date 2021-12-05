@@ -110,7 +110,7 @@ algoSelect.addEventListener("change", event => {
 })
 
 
-document.getElementById("generate-maze-button").addEventListener("click", event => {
+document.getElementById("generate-maze-button").addEventListener("click", async event => {
 
     clearBoard()
 
@@ -123,5 +123,5 @@ document.getElementById("generate-maze-button").addEventListener("click", event 
     document.getElementById("19x59").classList.add("dest")
 
     initMaze()
-    recursiveBacktracker()
+    await recursiveBacktracker()
 })

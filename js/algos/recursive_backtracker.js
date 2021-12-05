@@ -70,8 +70,7 @@ function removeWall(cell1, cell2) {
 async function recursiveBacktracker() {
     let stack = []
 
-    // use this to change the initial position of maze (x * col + y)
-    let initialCell = 3 * col + 7
+    let initialCell = 1 * col + 1
 
     // Make the initial cell the current cell and mark it as visited
     let currentCell = initialCell
