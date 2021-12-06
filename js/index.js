@@ -1,5 +1,5 @@
 const row = 21
-const col = 61
+const col = 59
 
 
 let g = []
@@ -45,7 +45,7 @@ djikstraStart.addEventListener("click", async event => {
         clearVisitedNodes()
 
         djikstraStart.style.backgroundColor = ""
-        djikstraStart.innerHTML = `<i class="material-icons">play_arrow</i>`
+        djikstraStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
     }
 
     // after clicking forward button
@@ -63,8 +63,7 @@ djikstraStart.addEventListener("click", async event => {
         document.querySelector(".source").style.cursor = "not-allowed"
         document.querySelector(".dest").style.cursor = "not-allowed"
 
-        djikstraStart.style.backgroundColor = "#f44336"
-        djikstraStart.innerHTML = `<i class="material-icons">fast_forward</i>`
+        djikstraStart.innerHTML = `<i style="color: #EB5D1D; font-size: 60px;" class="material-icons">fast_forward</i>`
 
         let srcNode = document.querySelector(".source")
         let destNode = document.querySelector(".dest")
@@ -80,8 +79,8 @@ djikstraStart.addEventListener("click", async event => {
 
         loading = false
         animation = false
-        djikstraStart.style.backgroundColor = "#2196f3"
-        djikstraStart.innerHTML = `<i class="material-icons">pause</i>`
+
+        djikstraStart.innerHTML = `<i style="color: #BDD7EE; font-size: 60px;" class="material-icons">pause</i>`
 
         // allow users to change the nodes
         document.querySelector(".source").style.cursor = ""
@@ -106,7 +105,7 @@ algoSelect.addEventListener("change", event => {
     clearVisitedNodes()
 
     djikstraStart.style.backgroundColor = ""
-    djikstraStart.innerHTML = `<i class="material-icons">play_arrow</i>`
+    djikstraStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
 })
 
 
@@ -120,7 +119,7 @@ document.getElementById("generate-maze-button").addEventListener("click", async 
     document.querySelector(".dest").classList.remove("dest")
 
     document.getElementById("1x1").classList.add("source")
-    document.getElementById("19x59").classList.add("dest")
+    document.getElementById("19x57").classList.add("dest")
 
     initMaze()
     await recursiveBacktracker()
