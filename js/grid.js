@@ -8,6 +8,8 @@ function createGrid(row, col) {
     }
 }
 
+
+
 //  Grid drawing logic (changing the source and dest, drwaing walls)
 let sourceChangeFlag = false
 

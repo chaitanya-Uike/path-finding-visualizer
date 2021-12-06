@@ -106,6 +106,10 @@ main{
     border: none;
 }
 
+.control:hover{
+    background-color: #6c757d;
+}
+
 #viz_start{
     cursor: pointer;
 }
