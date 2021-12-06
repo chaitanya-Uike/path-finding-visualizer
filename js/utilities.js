@@ -25,7 +25,14 @@ async function showPath(src, dest) {
         if (animation) {
             await delay(1 / parseInt(document.querySelector("#speed").value))
         }
-        document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = "greenyellow"
+        let pathNode = document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`)
+        pathNode.classList.remove("visited")
+        pathNode.classList.remove("visited-animated")
+
+        if (animation)
+            pathNode.classList.add("path-animated")
+        else
+            pathNode.classList.add("path")
     }
 }
 
@@ -56,13 +63,21 @@ function clearWall() {
     Array.from(document.getElementsByClassName("wall")).forEach(element => {
         element.classList.remove("wall")
     })
+
+    Array.from(document.getElementsByClassName("wall-animated")).forEach(element => {
+        element.classList.remove("wall-animated")
+    })
 }
 
 function clearPath() {
 
-    for (let i = 0; i < path.length; i++) {
-        document.getElementById(`${Math.floor(path[i] / col)}x${path[i] % col}`).style.backgroundColor = ""
-    }
+    Array.from(document.getElementsByClassName("path")).forEach(element => {
+        element.classList.remove("path")
+    })
+
+    Array.from(document.getElementsByClassName("path-animated")).forEach(element => {
+        element.classList.remove("path-animated")
+    })
 
     path = []
 }
@@ -71,6 +86,11 @@ function clearVisitedNodes() {
     Array.from(document.getElementsByClassName("visited")).forEach(element => {
         element.classList.remove("visited")
     })
+
+    Array.from(document.getElementsByClassName("visited-animated")).forEach(element => {
+        element.classList.remove("visited-animated")
+    })
+
 }
 
 function clearBoard() {

@@ -110,7 +110,6 @@ main{
     cursor: pointer;
 }
 
-
 .node-info{
     display: flex;
     align-items: center;
@@ -139,7 +138,11 @@ main{
     grid-template-rows: repeat(21, 25px);
     grid-template-columns: repeat(59, 25px);
 
+    place-items: center;
+
     z-index: 2;
+
+    background-color: white;
 
     cursor: pointer
 }
@@ -171,7 +174,11 @@ main{
     background-repeat: no-repeat;
     background-position: center;
     cursor: grab;
+
+    animation: node-animation 0.25s ease-in-out forwards;
 }
+
+
 
 .source:hover{
     background-size: 80% 80%; 
@@ -183,6 +190,14 @@ main{
     background-repeat: no-repeat;
     background-position: center;
     cursor: grab;
+
+    animation: node-animation 0.25s ease-in-out forwards;
+}
+
+@keyframes node-animation{
+    0%{
+        background-size: 100% 100%;
+    }
 }
 
 .dest:hover{
@@ -205,25 +220,105 @@ main{
     background: gray;
 }
 
+.path-animated{
+    background-color: greenyellow;
+
+    animation: path-animation 1.5s ease-in-out forwards;
+}
+
+.path{
+    background-color: greenyellow;
+
+}
+
+.path .dest {
+    animation: none;
+}
+
+@keyframes path-animation{
+    0% {
+        background-color: #00e676;
+    }
+
+    50%{
+        background-color: yellow;
+    }
+}
 
 .wall{
     background-color: #6E3CBC;
     border-color: #6E3CBC;
 }
 
-.wall.dest{
+.wall-animated{
+    background-color: #6E3CBC;
+    border-color: #6E3CBC;
+
+    animation: wall-animation 0.5s ease-in-out forwards;
+}
+
+@keyframes wall-animation{
+    0% {
+        width: 25px;
+        height: 25px;
+    }
+
+    50%{
+        width: 20px;
+        height: 20px;
+    }
+
+    100% {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+.wall.dest, .wall-animated.dest{
     background-color: white;
     border-color: #B8E4F0;
 }
 
-.wall.source{
+.wall.dest.path, .wall-animated.dest.path{
+    background-color: greenyellow;
+}
+
+
+
+.wall.source, .wall-animated.source{
     background-color: white;
     border-color: #B8E4F0;
+}
+
+.wall.source.path, .wall-animated.source.path{
+    background-color: greenyellow;
 }
 
 .visited{
     background-color: lightskyblue;
     border-color: white;
+}
+
+.visited-animated{
+    background-color: lightskyblue;
+    border-color: white;
+
+    animation: visited-animation 1s ease-in-out forwards;
+}
+
+@keyframes visited-animation{
+    0% {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: aquamarine;
+    }
+
+    100% {
+        width: 25px;
+        height: 25px;
+        border-radius: 0;
+    }
 }
 
 

@@ -98,11 +98,12 @@ grid.addEventListener("mouseover", async event => {
             let cell_id = event.target.id.split("x")[0] * col + event.target.id.split("x")[1] * 1
             if (walls[cell_id] == 0) {
                 walls[cell_id] = 1
-                event.target.classList.add("wall")
+                event.target.classList.add("wall-animated")
             }
             else {
                 walls[cell_id] = 0
                 event.target.classList.remove("wall")
+                event.target.classList.remove("wall-animated")
             }
 
             let srcNode = document.querySelector(".source")
@@ -128,11 +129,12 @@ grid.addEventListener("click", async event => {
         let cell_id = event.target.id.split("x")[0] * col + event.target.id.split("x")[1] * 1
         if (walls[cell_id] == 0) {
             walls[cell_id] = 1
-            event.target.classList.add("wall")
+            event.target.classList.add("wall-animated")
         }
         else {
             walls[cell_id] = 0
             event.target.classList.remove("wall")
+            event.target.classList.remove("wall-animated")
         }
 
         let srcNode = document.querySelector(".source")

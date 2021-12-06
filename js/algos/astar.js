@@ -132,7 +132,10 @@ async function aStar(src, dest) {
             }
 
             // change color of the visited nodes
-            document.getElementById(`${node.x}x${node.y}`).classList.add("visited")
+            if (animation)
+                document.getElementById(`${node.x}x${node.y}`).classList.add("visited-animated")
+            else
+                document.getElementById(`${node.x}x${node.y}`).classList.add("visited")
         }
     }
 }

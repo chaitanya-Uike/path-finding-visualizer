@@ -82,7 +82,10 @@ async function djikstra(src, dest) {
         }
 
         // change color of the visited nodes
-        document.getElementById(`${Math.floor(u / col)}x${u % col}`).classList.add("visited")
+        if (animation)
+            document.getElementById(`${Math.floor(u / col)}x${u % col}`).classList.add("visited-animated")
+        else
+            document.getElementById(`${Math.floor(u / col)}x${u % col}`).classList.add("visited")
 
         if (u == dest)
             return
