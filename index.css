@@ -28,7 +28,7 @@ main{
 
     z-index: 1;
 
-    background-color: #D47AE8;
+    background-color: lightpink;
 }
 
 .top-right{
@@ -39,7 +39,7 @@ main{
     width: 50%;
     height: calc(50% + 100px);
 
-    background-color: #D47AE8;
+    background-color: lightpink;
 }
 
 .bottom-left{
