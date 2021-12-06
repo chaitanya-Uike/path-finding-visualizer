@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -77,7 +79,7 @@ main{
     left: 50%;
     transform: translate(-50%, 0);
 
-    width: 1475px;
+    width: 800px;
     height: 75px;
 
     margin-top: 15px;
@@ -94,7 +96,7 @@ main{
     align-items: center;
     justify-content: center;
     height: 50px;
-    width: 225px;
+    width: 150px;
 
     background-color: #404040;
     color: white;
@@ -153,10 +155,12 @@ main{
     justify-content: space-evenly;
     align-items: center;
 
-    width: 1475px;
+    width: 800px;
     height: 45px;
 
-    color: white;
+    background-color: white;
+
+    border-radius: 20px;
 
     z-index: 2;
 }
@@ -225,7 +229,8 @@ main{
 
 /* for the nav bar info */
 .node-title{
-    color: white;
+    font-family: 'Roboto', sans-serif;
+    color: #262626;
 }
 
 .display-source{
@@ -248,7 +253,7 @@ main{
     width: 25px;
     height: 25px;
     background-color: white;
-    border: 1px solid #B8E4F0;
+    border: 2px solid #B8E4F0;
 }
 
 .display-visited{
