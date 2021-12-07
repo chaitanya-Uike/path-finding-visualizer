@@ -32,9 +32,9 @@ document.getElementById(`${10}x${49}`).classList.add("dest")
 
 
 // start the visualizer
-const djikstraStart = document.getElementById("viz_start")
+const vizStart = document.getElementById("viz_start")
 
-djikstraStart.addEventListener("click", async event => {
+vizStart.addEventListener("click", async event => {
 
     // after clicking pause button
     if (startFlag && loading == false) {
@@ -44,8 +44,7 @@ djikstraStart.addEventListener("click", async event => {
 
         clearVisitedNodes()
 
-        djikstraStart.style.backgroundColor = ""
-        djikstraStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
+        vizStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
     }
 
     // after clicking forward button
@@ -63,7 +62,7 @@ djikstraStart.addEventListener("click", async event => {
         document.querySelector(".source").style.cursor = "not-allowed"
         document.querySelector(".dest").style.cursor = "not-allowed"
 
-        djikstraStart.innerHTML = `<i style="color: #EB5D1D; font-size: 60px;" class="material-icons">fast_forward</i>`
+        vizStart.innerHTML = `<i style="color: #EB5D1D; font-size: 60px;" class="material-icons">fast_forward</i>`
 
         let srcNode = document.querySelector(".source")
         let destNode = document.querySelector(".dest")
@@ -80,7 +79,7 @@ djikstraStart.addEventListener("click", async event => {
         loading = false
         animation = false
 
-        djikstraStart.innerHTML = `<i style="color: #BDD7EE; font-size: 60px;" class="material-icons">pause</i>`
+        vizStart.innerHTML = `<i style="color: #BDD7EE; font-size: 60px;" class="material-icons">pause</i>`
 
         // allow users to change the nodes
         document.querySelector(".source").style.cursor = ""
@@ -104,8 +103,7 @@ algoSelect.addEventListener("change", event => {
 
     clearVisitedNodes()
 
-    djikstraStart.style.backgroundColor = ""
-    djikstraStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
+    vizStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
 })
 
 
