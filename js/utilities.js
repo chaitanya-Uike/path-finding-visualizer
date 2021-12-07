@@ -95,8 +95,8 @@ function clearVisitedNodes() {
 
 function clearBoard() {
     startFlag = false
-    djikstraStart.style.backgroundColor = ""
-    djikstraStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
+    vizStart.style.backgroundColor = ""
+    vizStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
 
     clearWall()
     clearPath()
