@@ -1,16 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-p{
+p {
     margin: 0;
 }
 
+.info-carousel {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    position: absolute;
+    width: 700px;
+    height: fit-content;
+    background-color: #262626;
+    z-index: 20;
+    border-radius: 10px;
 
-main{
+    -webkit-box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.65);
+    -moz-box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.65);
+    box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.65);
+}
+
+#close-info-carousel i {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    color: #262626;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    z-index: 30;
+}
+
+#close-info-carousel i:hover {
+    color: lightgray;
+}
+
+.carousel-item h5,
+.carousel-item p {
+    color: #262626;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #262626;
+}
+
+.carousel-item img {
+    background-color: #262626;
+    height: 371.21px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #262626;
+}
+
+
+main {
     position: relative;
 
     min-width: 1520px;
@@ -18,7 +69,7 @@ main{
     min-height: 700px;
 }
 
-.top-left{
+.top-left {
     position: absolute;
     top: 0;
     left: 0;
@@ -33,7 +84,7 @@ main{
     background-color: lightpink;
 }
 
-.top-right{
+.top-right {
     position: absolute;
     top: 0;
     right: 0;
@@ -44,7 +95,7 @@ main{
     background-color: lightpink;
 }
 
-.bottom-left{
+.bottom-left {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -52,10 +103,10 @@ main{
     width: 50%;
     height: calc(50% + 100px);
 
-    background-color:#262626;
+    background-color: #262626;
 }
 
-.bottom-right{
+.bottom-right {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -63,17 +114,35 @@ main{
     width: 50%;
     height: 50%;
 
-    background-color:#262626;
+    background-color: #262626;
 
     border-top-right-radius: 100px;
 }
 
+#info-btn {
+    width: fit-content;
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
+}
 
-.controls{
+#info-btn i {
+    font-size: 30px;
+    color: #262626;
+}
+
+#info-btn i:hover {
+    color: gray;
+}
+
+
+.controls {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    
+
 
     position: absolute;
     left: 50%;
@@ -91,7 +160,7 @@ main{
     z-index: 5;
 }
 
-.control{
+.control {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,32 +175,32 @@ main{
     border: none;
 }
 
-.control:hover{
+.control:hover {
     background-color: #6c757d;
 }
 
-#viz_start{
+#viz_start {
     cursor: pointer;
 }
 
-.node-info{
+.node-info {
     display: flex;
     align-items: center;
 }
 
-.node-color{
+.node-color {
     width: 25px;
     height: 25px;
 }
 
-.cell{
+.cell {
     width: 25px;
     height: 25px;
     background-color: white;
     border: 1px solid #B8E4F0;
 }
 
-.grid{
+.grid {
     position: absolute;
     left: 50%;
     top: 60%;
@@ -151,7 +220,7 @@ main{
     cursor: pointer
 }
 
-.legend-container{
+.legend-container {
     position: absolute;
     left: 50%;
     bottom: 10px;
@@ -172,7 +241,7 @@ main{
     z-index: 2;
 }
 
-.source{
+.source {
     background-image: url("icons/source.png");
     background-size: 90% 90%;
     background-repeat: no-repeat;
@@ -184,11 +253,11 @@ main{
 
 
 
-.source:hover{
-    background-size: 80% 80%; 
+.source:hover {
+    background-size: 80% 80%;
 }
 
-.dest{
+.dest {
     background-image: url("icons/dest.png");
     background-size: 90% 90%;
     background-repeat: no-repeat;
@@ -198,39 +267,39 @@ main{
     animation: node-animation 0.25s ease-in-out forwards;
 }
 
-@keyframes node-animation{
-    0%{
+@keyframes node-animation {
+    0% {
         background-size: 100% 100%;
     }
 }
 
-.dest:hover{
+.dest:hover {
     background-size: 80% 80%;
 }
 
-#speed{
+#speed {
     width: 80%;
 }
 
 #speed::-webkit-slider-thumb {
     background: gray;
 }
-  
+
 #speed::-moz-range-thumb {
     background: gray;
 }
-  
+
 #speed::-ms-thumb {
     background: gray;
 }
 
-.path-animated{
+.path-animated {
     background-color: greenyellow;
 
     animation: path-animation 1.5s ease-in-out forwards;
 }
 
-.path{
+.path {
     background-color: greenyellow;
 
 }
@@ -239,35 +308,35 @@ main{
     animation: none;
 }
 
-@keyframes path-animation{
+@keyframes path-animation {
     0% {
         background-color: #00e676;
     }
 
-    50%{
+    50% {
         background-color: yellow;
     }
 }
 
-.wall{
+.wall {
     background-color: #6E3CBC;
     border-color: #6E3CBC;
 }
 
-.wall-animated{
+.wall-animated {
     background-color: #6E3CBC;
     border-color: #6E3CBC;
 
     animation: wall-animation 0.5s ease-in-out forwards;
 }
 
-@keyframes wall-animation{
+@keyframes wall-animation {
     0% {
         width: 25px;
         height: 25px;
     }
 
-    50%{
+    50% {
         width: 20px;
         height: 20px;
     }
@@ -278,39 +347,43 @@ main{
     }
 }
 
-.wall.dest, .wall-animated.dest{
+.wall.dest,
+.wall-animated.dest {
     background-color: white;
     border-color: #B8E4F0;
 }
 
-.wall.dest.path, .wall-animated.dest.path{
+.wall.dest.path,
+.wall-animated.dest.path {
     background-color: greenyellow;
 }
 
 
 
-.wall.source, .wall-animated.source{
+.wall.source,
+.wall-animated.source {
     background-color: white;
     border-color: #B8E4F0;
 }
 
-.wall.source.path, .wall-animated.source.path{
+.wall.source.path,
+.wall-animated.source.path {
     background-color: greenyellow;
 }
 
-.visited{
+.visited {
     background-color: lightskyblue;
     border-color: white;
 }
 
-.visited-animated{
+.visited-animated {
     background-color: lightskyblue;
     border-color: white;
 
     animation: visited-animation 1s ease-in-out forwards;
 }
 
-@keyframes visited-animation{
+@keyframes visited-animation {
     0% {
         width: 15px;
         height: 15px;
@@ -327,12 +400,12 @@ main{
 
 
 /* for the nav bar info */
-.node-title{
+.node-title {
     font-family: 'Roboto', sans-serif;
     color: #262626;
 }
 
-.display-source{
+.display-source {
     background-image: url("icons/source.png");
     background-size: 90% 90%;
     background-repeat: no-repeat;
@@ -340,7 +413,7 @@ main{
     cursor: pointer;
 }
 
-.display-dest{
+.display-dest {
     background-image: url("icons/dest.png");
     background-size: 90% 90%;
     background-repeat: no-repeat;
@@ -348,24 +421,24 @@ main{
     cursor: pointer;
 }
 
-.display-cell{
+.display-cell {
     width: 25px;
     height: 25px;
     background-color: white;
     border: 2px solid #B8E4F0;
 }
 
-.display-visited{
+.display-visited {
     background-color: lightskyblue;
     border-color: white;
 }
 
-.display-path{
+.display-path {
     background-color: greenyellow;
     border-color: greenyellow;
 }
 
-.display-wall{
+.display-wall {
     background-color: #6E3CBC;
     border-color: #6E3CBC;
 }

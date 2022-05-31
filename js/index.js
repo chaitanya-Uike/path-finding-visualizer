@@ -44,7 +44,7 @@ vizStart.addEventListener("click", async event => {
 
         clearVisitedNodes()
 
-        vizStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons">play_arrow</i>`
+        vizStart.innerHTML = `<i style="color: #92D050; font-size: 60px;" class="material-icons" title="start">play_arrow</i>`
     }
 
     // after clicking forward button
@@ -62,7 +62,7 @@ vizStart.addEventListener("click", async event => {
         document.querySelector(".source").style.cursor = "not-allowed"
         document.querySelector(".dest").style.cursor = "not-allowed"
 
-        vizStart.innerHTML = `<i style="color: #EB5D1D; font-size: 60px;" class="material-icons">fast_forward</i>`
+        vizStart.innerHTML = `<i style="color: #EB5D1D; font-size: 60px;" class="material-icons" title="fast-forward">fast_forward</i>`
 
         let srcNode = document.querySelector(".source")
         let destNode = document.querySelector(".dest")
@@ -79,7 +79,7 @@ vizStart.addEventListener("click", async event => {
         loading = false
         animation = false
 
-        vizStart.innerHTML = `<i style="color: #BDD7EE; font-size: 60px;" class="material-icons">pause</i>`
+        vizStart.innerHTML = `<i style="color: #BDD7EE; font-size: 60px;" class="material-icons" title="stop">pause</i>`
 
         // allow users to change the nodes
         document.querySelector(".source").style.cursor = ""
@@ -121,4 +121,15 @@ document.getElementById("generate-maze-button").addEventListener("click", async 
 
     initMaze()
     await recursiveBacktracker()
+})
+
+const infoCarousel = document.querySelector(".info-carousel")
+
+document.getElementById("close-info-carousel").addEventListener("click", () => {
+    infoCarousel.style.display = "none"
+
+})
+
+document.getElementById("info-btn").addEventListener("click", () => {
+    infoCarousel.style.display = "block"
 })
